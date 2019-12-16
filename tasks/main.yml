@@ -1,0 +1,22 @@
+---
+# tasks file for onedata-deploy-batch-job
+- name: check if  airflow dags directory exist
+  stat: path={{airflow.dags}}
+  register: airflowdags
+
+- name: fail if airflow is not installed
+  fail: msg="there are no airflow installation"
+  when: airflowdags.stat.exists == False
+
+- name: Deploy  dags
+  template: src={{item}}.py dest={{airflow.dags}}/{{platform.env}}_{{item|basename}}.py owner=devops group=devops mode=755
+  with_items:
+    - dag
+  
+- name: sync pack jar  with airflow directory
+  synchronize:
+    src: /var/lib/jenkins/workspace/{{jenkins.pipeline}}/target/pack
+    dest: /home/airflow/program/{{platform.env}}_{{project.name}}
+
+
+

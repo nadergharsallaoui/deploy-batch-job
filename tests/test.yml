@@ -1,0 +1,8 @@
+---
+
+  - name: Deploy 
+    hosts: localhost
+    remote_user: root
+    roles:
+      - {role: onedata-deploy-batch-job}
+

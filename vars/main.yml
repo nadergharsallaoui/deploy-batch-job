@@ -1,0 +1,18 @@
+---
+# vars file for onedata-deploy-batch-job
+
+jenkins:
+  pipeline: "{{jenkins_pipline | default('')}}"
+
+airflow:
+  dags: "{{airflow_dags | default('/home/airflow/dags')}}"
+
+project:
+  name: "{{project_name | default('')}}"
+
+platform:
+  env: "{{platform_name | default('')}}"
+  email: "{{platform_email | default('')}}"
+
+cron:
+  value: "{{cron_value | default('')}}"
